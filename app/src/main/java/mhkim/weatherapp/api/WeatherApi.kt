@@ -1,5 +1,7 @@
 package mhkim.weatherapp.api
 
+import mhkim.weatherapp.BuildConfig
+import mhkim.weatherapp.data.LocationData
 import mhkim.weatherapp.data.WeatherData
 import mhkim.weatherapp.databinding.ActivityMainBinding
 import okhttp3.*
@@ -14,12 +16,13 @@ import java.io.IOException
 object WeatherApi {
 
 
-    fun getCurrentWeather(binding: ActivityMainBinding) {
+    fun getCurrentWeather(binding: ActivityMainBinding, location: LocationData) {
         val url =
-            "https://api.openweathermap.org/data/2.5/onecall?lat=36.33223680829036&lon=127.40335611407045&appid=666a60c3b80930e14664c6f2fc84ff1d"
+            "https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&appid=${BuildConfig.WEATHER_API_KEY}"
         val client = OkHttpClient()
         val request = Request.Builder().url(url).build()
         val data = WeatherData()
+        println("url : " + url)
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 //에러 메세지 출력
