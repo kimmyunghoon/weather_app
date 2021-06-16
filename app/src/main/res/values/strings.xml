@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="MO">월</string>
+    <string name="TU">화</string>
+    <string name="WE">수</string>
+    <string name="TH">목</string>
+    <string name="FR">금</string>
+    <string name="SA">토</string>
+    <string name="SU">일</string>
 </resources>
