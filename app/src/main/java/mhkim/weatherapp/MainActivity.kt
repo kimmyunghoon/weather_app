@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         try {
             // Request location updates
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, locationListener)
-            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 0f, locationListener)
+            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000L, 100f, locationListener)
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000L, 100f, locationListener)
         } catch(ex: SecurityException) {
             Log.d("myTag", "Security Exception, no location available")
         }
