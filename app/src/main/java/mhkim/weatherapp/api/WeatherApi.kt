@@ -3,7 +3,7 @@ package mhkim.weatherapp.api
 import mhkim.weatherapp.BuildConfig
 import mhkim.weatherapp.data.LocationData
 import mhkim.weatherapp.data.WeatherData
-import mhkim.weatherapp.databinding.ActivityMainBinding
+import mhkim.weatherapp.databinding.ActivityWeatherBinding
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -16,7 +16,7 @@ import java.io.IOException
 object WeatherApi {
 
 
-    fun getCurrentWeather(binding: ActivityMainBinding, location: LocationData) {
+    fun getCurrentWeather(binding: ActivityWeatherBinding, location: LocationData) {
         val url =
             "https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&appid=${BuildConfig.WEATHER_API_KEY}"
         val client = OkHttpClient()
@@ -39,10 +39,11 @@ object WeatherApi {
                 data.humidity = current.get("humidity") as Int
                 data.isRain = false
                 data.pressure = current.get("pressure") as Int
+                data.temperature= (current.get("temp") as Double - 273.15).toInt()
                 println("response current: " + current)
                 val current_weather = JSONArray(current.get("weather").toString())
                 data.weather_type = JSONObject(current_weather[0].toString()).get("main") as String
-
+                binding.location = location
                 binding.weather = data
             }
         })

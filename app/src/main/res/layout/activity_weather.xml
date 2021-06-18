@@ -29,7 +29,7 @@
                 android:layout_margin="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="위치" />
+                android:text="@{location.address, default=`출력중`}" />
             <TextView
                 android:id="@+id/temperature_text_view"
                 android:textSize="30sp"
@@ -37,7 +37,7 @@
                 android:layout_margin="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="온도위치" />
+                android:text="@{weather.getTemperature(), default=`출력중`}" />
 
             <ImageView
                 android:id="@+id/weather_icon"
@@ -65,10 +65,14 @@
 
         </FrameLayout>
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/days_tab"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextAppearance="@style/tab_text"
+            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"
             android:layout_gravity="bottom">
 
 
