@@ -26,16 +26,17 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_weather)
         val today  = Calendar.getInstance()
         Log.d("TAG", today.get(Calendar.DAY_OF_WEEK).toString())
+
+        /**
+         * 요일 별 텝 설정
+         */
         binding?.daysTab?.getTabAt(  today.get(Calendar.DAY_OF_WEEK)-1)?.select();
         binding?.daysTab?.touchables?.forEach { it.isEnabled = false }
-
 
         /**
          * Todo : 위치관련 권한 요청 기능 추가 - 앱 로딩후 바로 출력 -> 승인시 앱 기능 바로 이용 미승인시 상단에 알림창을 통해서 승인 요청 알림 표시
          */
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-
-
 
 
         try {

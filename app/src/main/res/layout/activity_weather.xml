@@ -53,7 +53,7 @@
                 android:layout_margin="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="임시" />
+                android:text="@{weather.description, default=`출력중`}" />
             <TextView
                 android:id="@+id/tmp2_text_view"
                 android:textSize="30sp"
@@ -61,7 +61,7 @@
                 android:layout_margin="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="임시" />
+                android:text="@{weather.weather_type, default=`출력중`}" />
 
         </FrameLayout>
         <com.google.android.material.tabs.TabLayout

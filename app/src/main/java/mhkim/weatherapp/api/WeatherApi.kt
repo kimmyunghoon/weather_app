@@ -42,7 +42,10 @@ object WeatherApi {
                 data.temperature= (current.get("temp") as Double - 273.15).toInt()
                 println("response current: " + current)
                 val current_weather = JSONArray(current.get("weather").toString())
-                data.weather_type = JSONObject(current_weather[0].toString()).get("main") as String
+                val weather_data = JSONObject(current_weather[0].toString())
+                data.weather_type = weather_data.get("main") as String
+                data.weather_code = weather_data.get("id") as Int
+                data.description = weather_data.get("description") as String
                 binding.location = location
                 binding.weather = data
             }
