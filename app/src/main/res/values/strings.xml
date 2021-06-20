@@ -7,4 +7,6 @@
     <string name="FR">금</string>
     <string name="SA">토</string>
     <string name="SU">일</string>
+    <string name="LOCATION_CONFIRM_MSG">위치 권한 승인이 필요합니다</string>
+    <string name="CONFIRM_MSG"><u>CONFIRM</u></string>
 </resources>

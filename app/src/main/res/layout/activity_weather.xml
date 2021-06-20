@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="weather"
             type="mhkim.weatherapp.data.WeatherData" />
         <variable
             name="location"
             type="mhkim.weatherapp.data.LocationData" />
+        <variable
+            name="status"
+            type="mhkim.weatherapp.data.StatusData"/>
+        <variable
+            name="activity"
+            type="mhkim.weatherapp.MainActivity"/>
     </data>
 
     <LinearLayout
@@ -16,59 +23,93 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:visibility="@{status.location_confirm ? View.GONE : View.VISIBLE}"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:textColor="@color/white"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
+                android:textSize="25sp"
+                android:text="@string/LOCATION_CONFIRM_MSG"
+                android:gravity="center_horizontal|center" />
+            <TextView
+                android:id="@+id/confirm_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/red"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="20sp"
+                android:text="@string/CONFIRM_MSG"
+                android:onClick="@{()->activity.locationConfirm()}"
+                android:gravity="center_horizontal|center" />
+        </LinearLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_weight="10"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="8">
 
 
             <TextView
                 android:id="@+id/location_text_view"
-                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_margin="50dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{location.address, default=`출력중`}" />
+                android:text="@{location.address, default=`출력중`}"
+                android:textSize="30sp" />
+
             <TextView
                 android:id="@+id/temperature_text_view"
-                android:textSize="30sp"
-                android:layout_gravity="end"
-                android:layout_margin="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{weather.getTemperature(), default=`출력중`}" />
+                android:layout_gravity="end"
+                android:layout_margin="50dp"
+                android:text="@{weather.getTemperature(), default=`출력중`}"
+                android:textSize="30sp" />
 
             <ImageView
                 android:id="@+id/weather_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars"
                 android:layout_gravity="center"
-                />
+                tools:srcCompat="@tools:sample/avatars" />
+
             <TextView
                 android:id="@+id/tmp1_text_view"
-                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="50dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{weather.description, default=`출력중`}" />
+                android:text="@{weather.description, default=`출력중`}"
+                android:textSize="30sp" />
+
             <TextView
                 android:id="@+id/tmp2_text_view"
-                android:textSize="30sp"
-                android:layout_gravity="end|bottom"
-                android:layout_margin="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{weather.weather_type, default=`출력중`}" />
+                android:layout_gravity="end|bottom"
+                android:layout_margin="50dp"
+                android:text="@{weather.weather_type, default=`출력중`}"
+                android:textSize="30sp" />
 
         </FrameLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/days_tab"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:tabTextAppearance="@style/tab_text"
             app:tabMode="fixed"
             app:tabMaxWidth="0dp"
