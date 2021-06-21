@@ -22,7 +22,7 @@ import java.io.IOException
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private var binding: ActivityWeatherBinding? = null
+    private lateinit var binding: ActivityWeatherBinding
     private var locationManager : LocationManager? = null
     private var permission_status : StatusData = StatusData()
 
@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
          * Todo : 날씨에 따른 화면 바인딩 처리 추가 및 데이터 연동 추가
          */
         binding = DataBindingUtil.setContentView(this,R.layout.activity_weather)
-        binding?.activity = this
-        binding?.weather = WeatherData()
-        binding?.location = LocationData(0.0,0.0,"None")
+        binding.activity = this
+        binding.weather = WeatherData()
+        binding.location = LocationData(0.0,0.0,"None")
 
         val today  = Calendar.getInstance()
-        binding?.daysTab?.getTabAt(  today.get(Calendar.DAY_OF_WEEK)-1)?.select();
-        binding?.daysTab?.touchables?.forEach { it.isEnabled = false }
+        binding.daysTab.getTabAt(  today.get(Calendar.DAY_OF_WEEK)-1)?.select();
+        binding.daysTab.touchables?.forEach { it.isEnabled = false }
 
 
 
@@ -61,8 +61,7 @@ class MainActivity : AppCompatActivity() {
              */
             permission_status.location_confirm = false
         }
-
-        binding?.status = permission_status
+        binding.status = permission_status
     }
 
     fun location_service() {
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     permission_status.location_confirm = isGranted
 
-                    binding?.status = permission_status
+                    binding.status = permission_status
                 }
             }
     fun locationConfirm(){
@@ -116,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MapsActivity", e.localizedMessage)
             }
 
-            WeatherApi.getCurrentWeather(binding!!, locationData)
+            WeatherApi.getCurrentWeather(binding, locationData)
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
