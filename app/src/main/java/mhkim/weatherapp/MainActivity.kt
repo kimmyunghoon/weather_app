@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED  ){
            permission_status.location_confirm = true
-
+           location_service()
         }
-        if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
+        else if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
             /**
              * Todo : 왜 위치 권한이 필요한지에 대한 정보가 노출되어야함.
              */
@@ -64,6 +64,16 @@ class MainActivity : AppCompatActivity() {
         binding?.status = permission_status
     }
 
+    fun location_service() {
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
+        try {
+            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000L, 100f, locationListener)
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000L, 100f, locationListener)
+        } catch(ex: SecurityException) {
+            Log.d("myTag", "Security Exception, no location available")
+        }
+    }
+
 
     val requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()
@@ -72,15 +82,8 @@ class MainActivity : AppCompatActivity() {
                 if (isGranted) {
 
                     permission_status.location_confirm = isGranted
+                    location_service()
 
-                    binding?.status = permission_status
-                    locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-                    try {
-                        locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000L, 100f, locationListener)
-                        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000L, 100f, locationListener)
-                    } catch(ex: SecurityException) {
-                        Log.d("myTag", "Security Exception, no location available")
-                    }
                 } else {
                     permission_status.location_confirm = isGranted
 
