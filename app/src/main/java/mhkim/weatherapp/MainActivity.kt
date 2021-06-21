@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var binding: ActivityWeatherBinding? = null
     private var locationManager : LocationManager? = null
     private var permission_status : StatusData = StatusData()
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,16 +42,22 @@ class MainActivity : AppCompatActivity() {
         binding?.daysTab?.touchables?.forEach { it.isEnabled = false }
 
 
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
         Log.d("TAG", (ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED  ).toString())
-       if(ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED  ){
-           permission_status.location_confirm = true
-           location_service()
+        ) ).toString())
+        if(ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED  ){
+            permission_status.location_confirm = true
+            location_service()
         }
         else if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
             /**
@@ -59,6 +65,7 @@ class MainActivity : AppCompatActivity() {
              */
             permission_status.location_confirm = false
         }
+
 
         Log.d("TAG", permission_status.toString())
         binding?.status = permission_status
