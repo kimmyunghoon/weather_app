@@ -48,10 +48,6 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
-        Log.d("TAG", (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-        ) ).toString())
         if(ContextCompat.checkSelfPermission(
                         this,
                         Manifest.permission.ACCESS_FINE_LOCATION
@@ -66,8 +62,6 @@ class MainActivity : AppCompatActivity() {
             permission_status.location_confirm = false
         }
 
-
-        Log.d("TAG", permission_status.toString())
         binding?.status = permission_status
     }
 
@@ -85,7 +79,6 @@ class MainActivity : AppCompatActivity() {
     val requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()
             ) { isGranted: Boolean ->
-                Log.d("Location Comfirm","$isGranted")
                 if (isGranted) {
 
                     permission_status.location_confirm = isGranted
@@ -101,7 +94,6 @@ class MainActivity : AppCompatActivity() {
         /**
          * Todo : 위치관련 권한 요청 기능 추가 - 앱 로딩후 바로 출력 -> 승인시 앱 기능 바로 이용 미승인시 상단에 알림창을 통해서 승인 요청 알림 표시
          */
-        Log.d("locationConfirm","RUN")
         requestPermissionLauncher.launch(
                     Manifest.permission.ACCESS_FINE_LOCATION)
     }
