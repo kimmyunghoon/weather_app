@@ -2,8 +2,13 @@ package mhkim.weatherapp.common
 
 import mhkim.weatherapp.R
 
+interface CommonMethod {
+    fun getMain(): String
+    fun getDescription(): String
+}
 
-enum class Icon(var main:String ,var description: String) {
+enum class Icon(private  var main:String ,private var description: String) : CommonMethod {
+
     RAIN("Rain","Rain"),
     LIGHTRAIN("Rain","light rain"),
     MODRAIN("Rain","moderate rain"),
@@ -53,12 +58,20 @@ enum class Icon(var main:String ,var description: String) {
     DEFAULT("DEFAULT","none"),
     ;
 
+    override fun getMain(): String {
+       return this.main
+    }
+
+    override fun getDescription(): String {
+        return this.description
+    }
+
     companion object {
         fun from(main:String,description: String): Icon? = values().find { it.description.toLowerCase() == description.toLowerCase() || it.main.toLowerCase() == main.toLowerCase()   }
     }
 
 
-    fun getValue(): Int {
+    fun getValue(): Int? {
         return when (this) {
             RAIN,LIGHTRAIN,MODRAIN,HIRAIN,VHRAIN,EXTREMERAIN -> R.drawable.rain_d
 
@@ -97,7 +110,7 @@ enum class Icon(var main:String ,var description: String) {
             SQUALLS,
             TORNADO,
             -> R.drawable.mist_d
-            else -> R.drawable.mist_d
+            else -> null
         }
     }
 }
