@@ -116,6 +116,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             WeatherApi.getCurrentWeather(binding, locationData)
+            WeatherApi.get7DaysWeather(binding, locationData)
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
