@@ -54,20 +54,24 @@ enum class Icon(var main:String ,var description: String) {
     ;
 
     companion object {
-        fun from(main:String,description: String): Icon? = values().find { it.description.toLowerCase() == description.toLowerCase() || it.main.toLowerCase() == main.toLowerCase()   } ?: null
+        fun from(main:String,description: String): Icon? = values().find { it.description.toLowerCase() == description.toLowerCase() || it.main.toLowerCase() == main.toLowerCase()   }
     }
 
 
     fun getValue(): Int {
         return when (this) {
             RAIN,LIGHTRAIN,MODRAIN,HIRAIN,VHRAIN,EXTREMERAIN -> R.drawable.rain_d
+
             CLEARSKY -> R.drawable.clearsky_d
+
             FEWCLOUDS -> R.drawable.fewclouds_d
+
             SCATTEREDCLOUDS -> R.drawable.scatteredclouds_d
 
             BROKENCLOUDS, OVERCASTCLOUDS -> R.drawable.brokenclouds_d
 
             THUNDERSTORM -> R.drawable.thunderstorm_d
+
             SNOW, LIGHTSHOW,
             HEAVYSNOW,
             SLEET,
@@ -81,6 +85,7 @@ enum class Icon(var main:String ,var description: String) {
             FREEZINGRAIN-> R.drawable.snow_d
 
             SHOWERRAIN,LISHWOERRAIN,HISHWOERRAIN,RAGGEDSHWOERRAIN-> R.drawable.showerrain_d
+
             MIST,
             SMOKE,
             HAZE,
