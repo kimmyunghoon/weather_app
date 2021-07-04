@@ -7,12 +7,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TableLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.tabs.TabLayout
 import mhkim.weatherapp.api.WeatherApi
 import mhkim.weatherapp.data.LocationData
 import mhkim.weatherapp.data.StatusData

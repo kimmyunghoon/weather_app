@@ -3,10 +3,14 @@ package mhkim.weatherapp.api
 import androidx.core.content.res.ResourcesCompat
 import mhkim.weatherapp.BuildConfig
 import mhkim.weatherapp.MainActivity
+import mhkim.weatherapp.common.DataParser
 import mhkim.weatherapp.common.Icon
+import mhkim.weatherapp.common.WeatherBuilder
 import mhkim.weatherapp.data.LocationData
 import mhkim.weatherapp.data.WeatherData
 import mhkim.weatherapp.databinding.ActivityWeatherBinding
+import mhkim.weatherapp.weather.Clear
+import mhkim.weatherapp.weather.WeatherInterface
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -35,24 +39,29 @@ object WeatherApi {
 
 
                 val dataStr: String = response.body()?.string()!!
-                val weather = JSONObject(dataStr)
+
+
+                val weather =  DataParser.CURRENT.toObject(dataStr)
 
                 val current = JSONObject(weather.get("current").toString())
                 data.humidity = current.get("humidity") as Int
-                data.isRain = false
+
                 data.pressure = current.get("pressure") as Int
                 data.temperature = (current.get("temp") as Double - 273.15).toInt()
                 val current_weather = JSONArray(current.get("weather").toString())
                 val weather_data = JSONObject(current_weather[0].toString())
+
+                val weatherValue = WeatherBuilder.from(weather_data.get("main") as String)
+
                 data.weather_type = weather_data.get("main") as String
+                data.isRain =  data.weather_type === "rain"
                 data.weather_code = weather_data.get("id") as Int
                 data.description = weather_data.get("description") as String
 
                 if (response.isSuccessful) {
                     binding.activity?.let {
                         it.runOnUiThread {
-                            val res = Icon.from(data.weather_type, data.description)
-                            binding.weatherIcon.setImageDrawable(res?.getValue()?.let { it_res -> ResourcesCompat.getDrawable(it.resources, it_res, null) })
+                            binding.weatherIcon.setImageDrawable(weatherValue?.getDrawable(it.resources))
                             binding.location = location
                             binding.weather = data
                         }

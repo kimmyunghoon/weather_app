@@ -1,11 +1,44 @@
 package mhkim.weatherapp.common
 
 import mhkim.weatherapp.R
+import mhkim.weatherapp.weather.*
+import org.json.JSONObject
+import java.util.*
 
 interface CommonMethod {
     fun getMain(): String
     fun getDescription(): String
 }
+
+enum class DataParser(protected val type : String){
+    CURRENT("Current Weather"),
+    DAILY("Daily Forecast 7 days");
+    fun toObject(data : String) : JSONObject{
+
+        return JSONObject(data)
+    }
+}
+
+enum class WeatherBuilder(private  var main:String, private  var weatherType:WeatherInterface){
+    ATMOSPHERE("atmosphere",Atmosphere()),
+    DRIZZLE("drizzle",Drizzle()),
+    CLEAR("clear",Clear()),
+    CLOUDS("clouds",Clouds()),
+    SNOW("snow",Snow()),
+    THUNDERSTORM("thunderstorm",Thunderstorm()),
+    RAIN("rain", Rain())
+    ;
+
+    companion object {
+        fun from(main:String): WeatherInterface? {
+            val builder =  values().find { it.main.toLowerCase(Locale.ROOT) == main.toLowerCase(Locale.ROOT) }?.weatherType
+            builder?.main = main
+            return builder
+        }
+
+    }
+}
+
 
 enum class Icon(private  var main:String ,private var description: String) : CommonMethod {
 

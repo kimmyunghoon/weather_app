@@ -2,7 +2,14 @@ package mhkim.weatherapp.data
 
 import java.lang.StringBuilder
 
-data class WeatherData(var weather_type: String = "None", var weather_code: Int=0, var description: String="None", var temperature: Int = 0, var pressure: Int = -1, var humidity: Int = -1, var isRain: Boolean = false, var rain: Int = -1) {
+data class WeatherData(var weather_type: String = "None",
+                       var weather_code: Int=0,
+                       var description: String="None",
+                       var temperature: Int = 0,
+                       var pressure: Int = -1,
+                       var humidity: Int = -1,
+                       var isRain: Boolean = false,
+                       var rain: Int = -1) {
 
     fun getTemperature(): String {
         return "$temperature℃"
