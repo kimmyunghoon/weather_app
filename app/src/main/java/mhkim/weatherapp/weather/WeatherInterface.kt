@@ -16,4 +16,6 @@ interface WeatherInterface {
         return icon?.getValue()?.let { ResourcesCompat.getDrawable(resource , it, null) }
     }
 
+    fun init(dataString : String)
+
 }

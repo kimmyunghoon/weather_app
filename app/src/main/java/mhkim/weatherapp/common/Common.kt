@@ -20,19 +20,19 @@ enum class DataParser(protected val type : String){
 }
 
 enum class WeatherBuilder(private  var main:String, private  var weatherType:WeatherInterface){
-    ATMOSPHERE("atmosphere",Atmosphere()),
-    DRIZZLE("drizzle",Drizzle()),
-    CLEAR("clear",Clear()),
-    CLOUDS("clouds",Clouds()),
-    SNOW("snow",Snow()),
-    THUNDERSTORM("thunderstorm",Thunderstorm()),
-    RAIN("rain", Rain())
+    ATMOSPHERE("atmosphere",Atmosphere("atmosphere")),
+    DRIZZLE("drizzle",Drizzle("drizzle")),
+    CLEAR("clear",Clear("clear")),
+    CLOUDS("clouds",Clouds("clouds")),
+    SNOW("snow",Snow("snow")),
+    THUNDERSTORM("thunderstorm",Thunderstorm("thunderstorm")),
+    RAIN("rain", Rain("rain"))
     ;
 
     companion object {
-        fun from(main:String): WeatherInterface? {
+        fun from(main:String,data: String): WeatherInterface? {
             val builder =  values().find { it.main.toLowerCase(Locale.ROOT) == main.toLowerCase(Locale.ROOT) }?.weatherType
-            builder?.main = main
+            builder?.init(data)
             return builder
         }
 

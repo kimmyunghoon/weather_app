@@ -10,4 +10,8 @@ data class Atmosphere(override var main: String = "none", override var descripti
         return super.getDrawable(resource)
     }
 
+    override fun init(dataString: String) {
+        TODO("Not yet implemented")
+    }
+
 }

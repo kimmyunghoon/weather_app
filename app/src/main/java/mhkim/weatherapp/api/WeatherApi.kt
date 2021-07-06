@@ -44,14 +44,15 @@ object WeatherApi {
                 val weather =  DataParser.CURRENT.toObject(dataStr)
 
                 val current = JSONObject(weather.get("current").toString())
+                val current_weather = JSONArray(current.get("weather").toString())
+                val weather_data = JSONObject(current_weather[0].toString())
+                val weatherValue = WeatherBuilder.from(weather_data.get("main") as String,dataStr)
+
                 data.humidity = current.get("humidity") as Int
 
                 data.pressure = current.get("pressure") as Int
                 data.temperature = (current.get("temp") as Double - 273.15).toInt()
-                val current_weather = JSONArray(current.get("weather").toString())
-                val weather_data = JSONObject(current_weather[0].toString())
 
-                val weatherValue = WeatherBuilder.from(weather_data.get("main") as String)
 
                 data.weather_type = weather_data.get("main") as String
                 data.isRain =  data.weather_type === "rain"

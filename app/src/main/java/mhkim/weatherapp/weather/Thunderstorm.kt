@@ -8,4 +8,8 @@ data class Thunderstorm(override var main: String = "none", override var descrip
     override fun getDrawable(resource: Resources): Drawable? {
         return super.getDrawable(resource)
     }
+
+    override fun init(dataString: String) {
+        TODO("Not yet implemented")
+    }
 }

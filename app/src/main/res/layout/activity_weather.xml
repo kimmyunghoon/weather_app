@@ -8,6 +8,9 @@
             name="weather"
             type="mhkim.weatherapp.data.WeatherData" />
         <variable
+            name="iWeather"
+            type="mhkim.weatherapp.weather.WeatherInterface" />
+        <variable
             name="location"
             type="mhkim.weatherapp.data.LocationData" />
         <variable
