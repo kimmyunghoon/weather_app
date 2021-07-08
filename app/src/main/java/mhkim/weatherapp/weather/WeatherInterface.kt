@@ -6,15 +6,16 @@ import androidx.core.content.res.ResourcesCompat
 import mhkim.weatherapp.common.Icon
 
 interface WeatherInterface {
-    var main : String
+    val main : String
     var description : String
     var id : Int
     val icon : Icon?
-        get() =  Icon.from(main, description)
+        get() =  Icon.from(main , description)
 
-    fun getDrawable(resource: Resources): Drawable? {
-        return icon?.getValue()?.let { ResourcesCompat.getDrawable(resource , it, null) }
-    }
+    var temperature: Int
+    var pressure: Int
+    var humidity: Int
+    fun getDrawable(resource: Resources): Drawable? = icon?.getValue()?.let { ResourcesCompat.getDrawable(resource , it, null) }
 
     fun init(dataString : String)
 

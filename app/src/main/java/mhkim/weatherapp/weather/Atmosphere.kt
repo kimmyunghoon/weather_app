@@ -5,7 +5,15 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import mhkim.weatherapp.common.Icon
 
-data class Atmosphere(override var main: String = "none", override var description: String= "none", override var id: Int= -1, override val icon: Icon?=null):WeatherInterface {
+data class Atmosphere(override val main: String,
+                      override var description: String= "none",
+                      override var id: Int= -1,
+                      override var temperature: Int= -1,
+                      override var pressure: Int= -1,
+                      override var humidity: Int= -1):WeatherInterface {
+    override val icon
+        get() = super.icon
+
     override fun getDrawable(resource: Resources): Drawable? {
         return super.getDrawable(resource)
     }

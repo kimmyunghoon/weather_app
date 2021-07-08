@@ -1,5 +1,7 @@
 package mhkim.weatherapp.common
 
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import mhkim.weatherapp.R
 import mhkim.weatherapp.weather.*
 import org.json.JSONObject
@@ -10,16 +12,7 @@ interface CommonMethod {
     fun getDescription(): String
 }
 
-enum class DataParser(protected val type : String){
-    CURRENT("Current Weather"),
-    DAILY("Daily Forecast 7 days");
-    fun toObject(data : String) : JSONObject{
-
-        return JSONObject(data)
-    }
-}
-
-enum class WeatherBuilder(private  var main:String, private  var weatherType:WeatherInterface){
+enum class WeatherBuilder(private var main:String, private  var weatherType:WeatherInterface) {
     ATMOSPHERE("atmosphere",Atmosphere("atmosphere")),
     DRIZZLE("drizzle",Drizzle("drizzle")),
     CLEAR("clear",Clear("clear")),
